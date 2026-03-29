@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="test.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Top Inspiring Image -->
+        <div class="top-image">
+            <h1>task html </h1>
+            <img src="/home/mo/Documents/task 1 /WhatsApp Image 2026-03-29 at 3.51.22 PM.jpeg" alt="Study Environment">
+        </div>
+
+        <div class="forms-wrapper">
+            <!-- Student Form -->
+            <div class="form-box">
+                <h2>Student Registration</h2>
+                <div class="form-group">
+                    <label>Student Name:</label>
+                    <input type="text" id="studentName" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label>Student ID:</label>
+                    <input type="text" id="studentID" placeholder="Enter ID">
+                </div>
+                <div class="form-group">
+                    <label>Student Photo:</label>
+                    <input type="file" id="studentPhoto" accept="image/*">
+                </div>
+                <button onclick="addStudent()" class="btn-student">Add Student</button>
+            </div>
+
+            <!-- Course Form -->
+            <div class="form-box">
+                <h2>Course Registration</h2>
+                <div class="form-group">
+                    <label>Subject Name:</label>
+                    <input type="text" id="subjectName" placeholder="Enter subject">
+                </div>
+                <div class="form-group">
+                    <label>Credit Hours:</label>
+                    <input type="text" id="subjectHours" placeholder="Enter hours">
+                </div>
+                <div class="form-group">
+                    <label>Subject Photo:</label>
+                    <input type="file" id="subjectPhoto" accept="image/*">
+                </div>
+                <button onclick="addCourse()" class="btn-course">Add Course</button>
+            </div>
+        </div>
+
+        <div class="table-section-wrapper" style="display: flex; gap: 30px; margin-top: 50px; flex-wrap: wrap;">
+            <!-- Student Table -->
+            <div style="flex: 1; min-width: 400px;">
+                <h2>Student Records</h2>
+                <table id="stTable">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>ID</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Course Table -->
+            <div style="flex: 1; min-width: 400px;">
+                <h2>Course Records</h2>
+                <table id="coTable">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Subject</th>
+                            <th>Hours</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function add(nId, iId, pId, tId, isS) {
+            var n = document.getElementById(nId).value, i = document.getElementById(iId).value, p = document.getElementById(pId);
+            if (!n || !i) return alert("Fill all fields!");
+
+            var row = document.getElementById(tId).insertRow();
+            row.insertCell(0).innerHTML = p.files[0] ? `<img src="${URL.createObjectURL(p.files[0])}" class="table-img ${isS ? 'student-photo' : ''}">` : "N/A";
+            row.insertCell(1).innerHTML = "<strong>" + n + "</strong>";
+            row.insertCell(2).innerHTML = i;
+            row.insertCell(3).innerHTML = '<button class="btn-delete" onclick="this.parentElement.parentElement.remove()">Delete</button>';
+
+            document.getElementById(nId).value = ""; document.getElementById(iId).value = ""; p.value = "";
+        }
+
+        function addStudent() { add('studentName', 'studentID', 'studentPhoto', 'stTable', true); }
+        function addCourse() { add('subjectName', 'subjectHours', 'subjectPhoto', 'coTable', false); }
+    </script>
+</body>
+
+</html>
